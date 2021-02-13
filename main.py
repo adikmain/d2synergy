@@ -2,14 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 import sqlite3 as sq
 
-# 1. URL - ссылка на то, что будем парсить
-# 2. HEADERS - хз, чтобы не подумали что бот
-# 3. heroes - то с чем будем работать
+# 1. URL - parsing new data from dotabuff.com
+# 2. HEADERS - don't let them think that you're robot
+# 3. heroes - list, we gon append here some information via our parser
 URL = 'https://www.dotabuff.com/heroes/damage'
 HEADERS = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
     'accept': '*/*'}
 heroes = []
+
 
 # Cookin' some html page
 def get_html(url, params=None):
@@ -20,7 +21,6 @@ def get_content(html):
     soup = BeautifulSoup(html, 'html.parser')
     items = soup.find_all('tr')
 
-
     for item in items:
         try:
             heroes.append(item.get_text(separator=' '))
@@ -30,7 +30,6 @@ def get_content(html):
     del heroes[0]
     for k in range(len(heroes)):
         heroes[k] = heroes[k].split(' ')
-
 
     # Make taken data sweet
     for j in range(len(heroes)):

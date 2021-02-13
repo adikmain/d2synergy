@@ -5,6 +5,7 @@ heroes_list = []
 heal_list = []
 tower_list = []
 damage_list = []
+save_list = []
 
 
 def getHeroes(names):
