@@ -1,5 +1,6 @@
 from main import heroes as info
 
+# Main lists
 heroes_list = []
 heal_list = []
 tower_list = []
@@ -60,9 +61,7 @@ getDamage(damage_list)
 
 # Greedy > defense > aggressive > greedy
 
-#  Теперь heroes_list имеет названия всех героев, нужно запихать их под роли через циклы угу...
-
-# Две основные колонки просто так, в итоге прога должна выдавать две эти колонки от лучших к худшим
+# Two main columns:
 core = [x for x in heroes_list if x in (
     'Abaddon', 'Alchemist', 'Brewmaster', 'Bristleback', 'Chaos Knight', 'Doom', 'Dragon Knight', 'Huskar', 'Kunkka',
     'Legion Commander', 'Lifestealer', 'Lycan', 'Mars', 'Night Stalker', 'Slardar', 'Spirit Breaker',
@@ -83,11 +82,11 @@ utility = [x for x in heroes_list if x in (
     'Witch Doctor'
 )]
 
-# 0.1 - Замедление
-# 0.3 - Обычный контроль (от стана венги до слипа бейна) АОЕ и может быть АСТРАЛ
-# 0.5 - Сайленс или непрямой стан
-# 0.7 - Контроль сквозь бкб
-# 0.9 - Аое контроль сквозь бкб
+# 0.1 - Slow
+# 0.3 - Simple stuns/other cc
+# 0.5 - Silence or utility spells
+# 0.7 - Control Through BKB
+# 0.9 - AOE cc Through BKB
 
 # Disable tier list
 disable_tier = {
@@ -136,7 +135,7 @@ damage_tier = {
 }
 
 
-# Делаем ластпик
+# Tryin to make last pick
 
 
 class CounterSynergy:
