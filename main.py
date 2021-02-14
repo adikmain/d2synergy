@@ -23,29 +23,29 @@ def get_content(html):
 
     for item in items:
         try:
-            heroes.append(item.get_text(separator=' '))
+            heroes.append(item.find_all('td'))
         except AttributeError:
             continue
 
     del heroes[0]
-    for k in range(len(heroes)):
-        heroes[k] = heroes[k].split(' ')
+    # for k in range(len(heroes)):
+    #     heroes[k] = heroes[k].split()
 
     # Make taken data sweet
-    for j in range(len(heroes)):
-        if len(heroes[j]) == 6:
-            heroes[j][0] = heroes[j][0] + ' ' + heroes[j][1] + ' ' + heroes[j][2]
-            for _ in range(2):
-                del heroes[j][1]
-
-        elif len(heroes[j]) == 7:
-            heroes[j][0] = heroes[j][0] + ' ' + heroes[j][1] + ' ' + heroes[j][2] + ' ' + heroes[j][3]
-            for _ in range(3):
-                del heroes[j][1]
-
-        elif len(heroes[j]) > 4:
-            heroes[j][0] = heroes[j][0] + ' ' + heroes[j][1]
-            del heroes[j][1]
+    # for j in range(len(heroes)):
+    #     if len(heroes[j]) == 6:
+    #         heroes[j][0] = heroes[j][0] + ' ' + heroes[j][1] + ' ' + heroes[j][2]
+    #         for _ in range(2):
+    #             del heroes[j][1]
+    #
+    #     elif len(heroes[j]) == 7:
+    #         heroes[j][0] = heroes[j][0] + ' ' + heroes[j][1] + ' ' + heroes[j][2] + ' ' + heroes[j][3]
+    #         for _ in range(3):
+    #             del heroes[j][1]
+    #
+    #     elif len(heroes[j]) > 4:
+    #         heroes[j][0] = heroes[j][0] + ' ' + heroes[j][1]
+    #         del heroes[j][1]
 
 
 # Main parse function
@@ -75,9 +75,10 @@ with sq.connect('adilek.db') as con:
             ''')
 
     for i in range(len(heroes)):
-        ready = heroes[i][0], heroes[i][-3], heroes[i][-2], heroes[i][-1]
+        ready = heroes[i][1].text, heroes[i][2].text, heroes[i][3].text, heroes[i][4].text
         # Created tuple to make import easier
         con.execute('insert into Heroes values (?,?,?,?)', ready)
 
         # Commit and stay good
     con.commit()
+

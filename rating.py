@@ -109,32 +109,24 @@ disable_tier = {
     '0.9': ['Axe', 'Clockwerk', 'Magnus', 'Phoenix', 'Spirit Breaker', 'Treant Protector', 'Faceless Void', 'Medusa',
             'Enigma', 'Puck', 'Rubick', 'Silencer', 'Warlock', 'Winter Wyvern'],
 }
+
+
+def split_ranges(list_):
+    return {
+        '0.1': [x[1] for x in list_ if 0.1 < float(x[0]) < 0.3],
+        '0.3': [x[1] for x in list_ if 0.5 > float(x[0]) >= 0.3],
+        '0.5': [x[1] for x in list_ if 0.7 > float(x[0]) >= 0.5],
+        '0.7': [x[1] for x in list_ if 0.9 > float(x[0]) >= 0.7],
+        '0.9': [x[1] for x in list_ if float(x[0]) > 0.9]
+    }
+
+
 # Heal tier list
-heal_tier = {
-    '0.1': [x[1] for x in heal_list if 0.1 < float(x[0]) < 0.3],
-    '0.3': [x[1] for x in heal_list if 0.5 > float(x[0]) >= 0.3],
-    '0.5': [x[1] for x in heal_list if 0.7 > float(x[0]) >= 0.5],
-    '0.7': [x[1] for x in heal_list if 0.9 > float(x[0]) >= 0.7],
-    '0.9': [x[1] for x in heal_list if float(x[0]) > 0.9]
-}
+heal_tier = split_ranges(heal_list)
 # Tower tier list
-tower_tier = {
-    '0.1': [x[1] for x in tower_list if 0.1 < float(x[0]) < 0.3],
-    '0.3': [x[1] for x in tower_list if 0.5 > float(x[0]) >= 0.3],
-    '0.5': [x[1] for x in tower_list if 0.7 > float(x[0]) >= 0.5],
-    '0.7': [x[1] for x in tower_list if 0.9 > float(x[0]) >= 0.7],
-    '0.9': [x[1] for x in tower_list if float(x[0]) > 0.9]
-
-}
+tower_tier = split_ranges(tower_list)
 # Damage tier list
-damage_tier = {
-    '0.1': [x[1] for x in damage_list if 0.1 < float(x[0]) < 0.3],
-    '0.3': [x[1] for x in damage_list if 0.5 > float(x[0]) >= 0.3],
-    '0.5': [x[1] for x in damage_list if 0.7 > float(x[0]) >= 0.5],
-    '0.7': [x[1] for x in damage_list if 0.9 > float(x[0]) >= 0.7],
-    '0.9': [x[1] for x in damage_list if float(x[0]) > 0.9]
-}
-
+damage_tier = split_ranges(damage_list)
 # Manually filled save list, save others and maybe oneself
 # 0.1 - heal
 # 0.3 - positioning
@@ -144,7 +136,6 @@ damage_tier = {
 save_tier = {
     '0.1': ['Chen', 'Dark Seer', 'Enchantress', 'Juggernaut', 'Lifestealer', 'Terrorblade', 'Treant Protector',
             'Undying', 'Warlock', 'Witch Doctor', ''],
-
     '0.3': ['Earth Spirit', 'Earthshaker', 'Faceless Void', 'Grimstroke', 'Keeper of the Light', 'Kunkka', 'Lone Druid',
             'Lycan', 'Naga Siren', "Nature's Prophet", 'Puck', 'Sniper', 'Underlord', 'Vengeful Spirit', ''],
     '0.5': ['Bane', 'Morphling', 'Outworld Destroyer', 'Pugna', 'Rubick', 'Shadow Demon', 'Tusk', ''],
@@ -165,75 +156,33 @@ class CounterSynergy:
     disable = 0
     save = 0
 
+    RANGES = [0.1, 0.3, 0.5, 0.7, 0.9]
+
     def __init__(self, name):
         self.name = name
 
+    def __str__(self):
+        return f'Hero: {self.name}\n' \
+               f'Damage: {self.damage}\n' \
+               f'Heal potential: {self.heal}\n' \
+               f'Push potential: {self.tower}\n' \
+               f'Disable potential: {self.disable}\n' \
+               f'Save options: {self.save}\n'
+
     def counter(self):
-        print(f'Hero: {self.name}')
-        if self.name in damage_tier['0.1']:
-            self.damage += 0.1
-        elif self.name in damage_tier['0.3']:
-            self.damage += 0.3
-        elif self.name in damage_tier['0.5']:
-            self.damage += 0.5
-        elif self.name in damage_tier['0.7']:
-            self.damage += 0.7
-        elif self.name in damage_tier['0.9']:
-            self.damage += 0.9
+        for i in CounterSynergy.RANGES:
+            if self.name in damage_tier[str(i)]:
+                self.damage += i
+            if self.name in heal_tier[str(i)]:
+                self.heal += i
+            if self.name in tower_tier[str(i)]:
+                self.tower += i
+            if self.name in disable_tier[str(i)]:
+                self.disable += i
+            if self.name in save_tier[str(i)]:
+                self.save += i
 
-        print(f'Damage: {self.damage}')
-
-        if self.name in heal_tier['0.1']:
-            self.heal += 0.1
-        elif self.name in heal_tier['0.3']:
-            self.heal += 0.3
-        elif self.name in heal_tier['0.5']:
-            self.heal += 0.5
-        elif self.name in heal_tier['0.7']:
-            self.heal += 0.7
-        elif self.name in heal_tier['0.9']:
-            self.heal += 0.9
-
-        print(f'Heal potential: {self.heal}')
-
-        if self.name in tower_tier['0.1']:
-            self.tower += 0.1
-        elif self.name in tower_tier['0.3']:
-            self.tower += 0.3
-        elif self.name in tower_tier['0.5']:
-            self.tower += 0.5
-        elif self.name in tower_tier['0.7']:
-            self.tower += 0.7
-        elif self.name in tower_tier['0.9']:
-            self.tower += 0.9
-
-        print(f'Push potential: {self.tower}')
-
-        if self.name in disable_tier['0.1']:
-            self.disable += 0.1
-        elif self.name in disable_tier['0.3']:
-            self.disable += 0.3
-        elif self.name in disable_tier['0.5']:
-            self.disable += 0.5
-        elif self.name in disable_tier['0.7']:
-            self.disable += 0.7
-        elif self.name in disable_tier['0.9']:
-            self.disable += 0.9
-
-        print(f'Disable potential: {self.disable}')
-
-        if self.name in save_tier['0.1']:
-            self.save += 0.1
-        elif self.name in save_tier['0.3']:
-            self.save += 0.3
-        elif self.name in save_tier['0.5']:
-            self.save += 0.5
-        elif self.name in save_tier['0.7']:
-            self.save += 0.7
-        elif self.name in save_tier['0.9']:
-            self.save += 0.9
-
-        print(f'Save options: {self.save}')
+        print(self, end='')
 
 
 hero = CounterSynergy(input('Введите героя... '))
