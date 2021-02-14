@@ -5,7 +5,6 @@ heroes_list = []
 heal_list = []
 tower_list = []
 damage_list = []
-save_list = []
 
 
 def getHeroes(names):
@@ -89,7 +88,7 @@ utility = [x for x in heroes_list if x in (
 # 0.7 - Control Through BKB
 # 0.9 - AOE cc Through BKB
 
-# Disable tier list
+# Disable tier list (manually filled)
 disable_tier = {
     '0.1': ['Abaddon', 'Io', 'Lifestealer', 'Bristleback', 'Lycan', 'Night Stalker', 'Omniknight',
             'Timbersaw', 'Undying', 'Arc Warden', 'Broodmother', 'Drow Ranger', 'Phantom Assassin',
@@ -101,15 +100,16 @@ disable_tier = {
             'Luna', 'Meepo', 'Mirana', 'Monkey King', 'Nyx Assassin', 'Pangolier', 'Shadow Fiend', 'Slark', 'Sniper',
             'Terrorblade', 'Troll Warlord', 'Ancient Apparition', 'Chen', 'Crystal Maiden', 'Dark Willow', 'Invoker',
             'Jakiro', 'Leshrac', 'Lich', 'Lina', 'Lion', 'Ogre Magi', 'Oracle', 'Outworld Destroyer', 'Lone Druid',
-            'Shadow Shaman', 'Storm Spirit', 'Techies', 'Visage', 'Void Spirit', 'Windranger', 'Witch Doctor', 'Zeus'],
+            'Shadow Shaman', 'Storm Spirit', 'Techies', 'Visage', 'Void Spirit', 'Windranger', 'Witch Doctor', 'Zeus',
+            'Riki'],
     '0.5': ['Bloodseeker', 'Morphling', 'Dark Seer', 'Disruptor', 'Enchantress', 'Grimstroke', 'Shadow Demon',
-            'Skywrath Mage'],
+            'Skywrath Mage', 'Death Prophet'],
     '0.7': ['Beastmaster', 'Doom', 'Legion Commander', 'Tusk', 'Huskar', 'Anti-Mage', 'Naga Siren', 'Vengeful Spirit',
             'Bane', 'Batrider', 'Templar Assassin', 'Necrophos', 'Queen of Pain'],
     '0.9': ['Axe', 'Clockwerk', 'Magnus', 'Phoenix', 'Spirit Breaker', 'Treant Protector', 'Faceless Void', 'Medusa',
             'Enigma', 'Puck', 'Rubick', 'Silencer', 'Warlock', 'Winter Wyvern'],
 }
-
+# Heal tier list
 heal_tier = {
     '0.1': [x[1] for x in heal_list if 0.1 < float(x[0]) < 0.3],
     '0.3': [x[1] for x in heal_list if 0.5 > float(x[0]) >= 0.3],
@@ -117,7 +117,7 @@ heal_tier = {
     '0.7': [x[1] for x in heal_list if 0.9 > float(x[0]) >= 0.7],
     '0.9': [x[1] for x in heal_list if float(x[0]) > 0.9]
 }
-
+# Tower tier list
 tower_tier = {
     '0.1': [x[1] for x in tower_list if 0.1 < float(x[0]) < 0.3],
     '0.3': [x[1] for x in tower_list if 0.5 > float(x[0]) >= 0.3],
@@ -126,13 +126,32 @@ tower_tier = {
     '0.9': [x[1] for x in tower_list if float(x[0]) > 0.9]
 
 }
-
+# Damage tier list
 damage_tier = {
     '0.1': [x[1] for x in damage_list if 0.1 < float(x[0]) < 0.3],
     '0.3': [x[1] for x in damage_list if 0.5 > float(x[0]) >= 0.3],
     '0.5': [x[1] for x in damage_list if 0.7 > float(x[0]) >= 0.5],
     '0.7': [x[1] for x in damage_list if 0.9 > float(x[0]) >= 0.7],
     '0.9': [x[1] for x in damage_list if float(x[0]) > 0.9]
+}
+
+# Manually filled save list, save others and maybe oneself
+# 0.1 - heal
+# 0.3 - positioning
+# 0.5 - astral, other stuff
+# 0.7 - dispell, through bkb
+# 0.9 - damage reduction, save from death, strong dispell
+save_tier = {
+    '0.1': ['Chen', 'Dark Seer', 'Enchantress', 'Juggernaut', 'Lifestealer', 'Terrorblade', 'Treant Protector',
+            'Undying', 'Warlock', 'Witch Doctor', ''],
+
+    '0.3': ['Earth Spirit', 'Earthshaker', 'Faceless Void', 'Grimstroke', 'Keeper of the Light', 'Kunkka', 'Lone Druid',
+            'Lycan', 'Naga Siren', "Nature's Prophet", 'Puck', 'Sniper', 'Underlord', 'Vengeful Spirit', ''],
+    '0.5': ['Bane', 'Morphling', 'Outworld Destroyer', 'Pugna', 'Rubick', 'Shadow Demon', 'Tusk', ''],
+    '0.7': ['Alchemist', 'Chaos Knight', ''],
+    '0.9': ['Arc Warden', 'Batrider', 'Centaur Warrunner', 'Dazzle', 'Abaddon', 'Io', 'Legion Commander', 'Lich',
+            'Mars', 'Ogre Magi', 'Omniknight', 'Oracle', 'Phoenix', 'Pudge', 'Snapfire', 'Tinker', 'Weaver',
+            'Winter Wyvern', 'Wraith King']
 }
 
 
@@ -202,6 +221,19 @@ class CounterSynergy:
             self.disable += 0.9
 
         print(f'Disable potential: {self.disable}')
+
+        if self.name in save_tier['0.1']:
+            self.save += 0.1
+        elif self.name in save_tier['0.3']:
+            self.save += 0.3
+        elif self.name in save_tier['0.5']:
+            self.save += 0.5
+        elif self.name in save_tier['0.7']:
+            self.save += 0.7
+        elif self.name in save_tier['0.9']:
+            self.save += 0.9
+
+        print(f'Save options: {self.save}')
 
 
 hero = CounterSynergy(input('Введите героя... '))
