@@ -5,6 +5,7 @@ heroes_list = []
 heal_list = []
 tower_list = []
 damage_list = []
+info = [[y.text for y in x[1:]] for x in info]
 
 
 def getHeroes(names):

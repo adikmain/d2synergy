@@ -28,24 +28,6 @@ def get_content(html):
             continue
 
     del heroes[0]
-    # for k in range(len(heroes)):
-    #     heroes[k] = heroes[k].split()
-
-    # Make taken data sweet
-    # for j in range(len(heroes)):
-    #     if len(heroes[j]) == 6:
-    #         heroes[j][0] = heroes[j][0] + ' ' + heroes[j][1] + ' ' + heroes[j][2]
-    #         for _ in range(2):
-    #             del heroes[j][1]
-    #
-    #     elif len(heroes[j]) == 7:
-    #         heroes[j][0] = heroes[j][0] + ' ' + heroes[j][1] + ' ' + heroes[j][2] + ' ' + heroes[j][3]
-    #         for _ in range(3):
-    #             del heroes[j][1]
-    #
-    #     elif len(heroes[j]) > 4:
-    #         heroes[j][0] = heroes[j][0] + ' ' + heroes[j][1]
-    #         del heroes[j][1]
 
 
 # Main parse function
@@ -81,4 +63,3 @@ with sq.connect('adilek.db') as con:
 
         # Commit and stay good
     con.commit()
-
