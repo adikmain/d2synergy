@@ -21,18 +21,12 @@ getHeroes(heroes_list)
 def getHeal(heroes):
     for i in range(len(info)):
         heroes.append([float(info[i][3]), info[i][0]])
+    top_heal = max(heroes)[0]
+    for v in range(len(heal_list)):
+        heal_list[v][0] /= top_heal
 
 
 getHeal(heal_list)
-
-
-# Sorting tier list
-def sortHeal():
-    for v in range(len(heal_list)):
-        heal_list[v][0] = (heal_list[v][0] / max(heal_list)[0])
-
-
-sortHeal()
 
 
 # Tower damage tier list
@@ -40,8 +34,9 @@ sortHeal()
 def getTower(heroes):
     for i in range(len(info)):
         heroes.append([float(info[i][2]), info[i][0]])
+    top_tower = max(heroes)[0]
     for v in range(len(heroes)):
-        heroes[v][0] = (heroes[v][0] / max(heroes)[0])
+        heroes[v][0] /= top_tower
 
 
 getTower(tower_list)
@@ -61,27 +56,6 @@ def getDamage(heroes):
 getDamage(damage_list)
 
 # Greedy > defense > aggressive > greedy
-
-# Two main columns:
-core = [x for x in heroes_list if x in (
-    'Abaddon', 'Alchemist', 'Brewmaster', 'Bristleback', 'Chaos Knight', 'Doom', 'Dragon Knight', 'Huskar', 'Kunkka',
-    'Legion Commander', 'Lifestealer', 'Lycan', 'Mars', 'Night Stalker', 'Slardar', 'Spirit Breaker',
-    'Sven', 'Tiny', 'Wraith King', 'Anti-Mage', 'Arc Warden', 'Bloodseeker', 'Broodmother', 'Clinkz', 'Drow Ranger',
-    'Ember Spirit', 'Faceless Void', 'Gyrocopter', 'Juggernaut', 'Lone Druid', 'Luna', 'Medusa', 'Meepo', 'Mirana',
-    'Monkey King', 'Morphling', 'Centaur Warrunner',
-    'Naga Siren', 'Pangolier', 'Phantom Assassin', 'Phantom Lancer', 'Razor', 'Riki', 'Shadow Fiend', 'Slark', 'Sniper',
-    'Spectre', 'Templar Assassin', 'Terrorblade', 'Troll Warlord', 'Ursa', 'Viper', 'Weaver', 'Death Prophet',
-    'Invoker', 'Leshrac', 'Lina', "Nature's Prophet", 'Necrophos', 'Outworld Destroyer', 'Queen of Pain', 'Silencer',
-    'Storm Spirit', 'Tinker', 'Void Spirit', 'Windranger')]
-
-utility = [x for x in heroes_list if x in (
-    'Abaddon', 'Alchemist', 'Earthshaker', 'Io', 'Kunkka', 'Omniknight', 'Phoenix', 'Sand King', 'Snapfire',
-    'Treant Protector', 'Underlord', 'Undying', 'Wraith King', 'Mirana', 'Naga Siren', 'Vengeful Spirit', 'Venomancer',
-    'Ancient Apparition', 'Bane', 'Chen', 'Crystal Maiden', 'Dark Willow', 'Dazzle', 'Disruptor', 'Enchantress',
-    'Grimstroke', 'Jakiro', 'Keeper of the Light', 'Leshrac', 'Lich', 'Lina', 'Lion', 'Ogre Magi', 'Oracle', 'Rubick',
-    'Shadow Demon', 'Shadow Shaman', 'Silencer', 'Skywrath Mage', 'Visage', 'Warlock', 'Windranger', 'Winter Wyvern',
-    'Witch Doctor'
-)]
 
 # 0.1 - Slow
 # 0.3 - Simple stuns/other cc
@@ -135,15 +109,49 @@ damage_tier = split_ranges(damage_list)
 # 0.7 - dispell, through bkb
 # 0.9 - damage reduction, save from death, strong dispell
 save_tier = {
-    '0.1': ['Chen', 'Dark Seer', 'Enchantress', 'Juggernaut', 'Lifestealer', 'Terrorblade', 'Treant Protector',
+    '0.1': ['Dark Seer', 'Enchantress', 'Juggernaut', 'Lifestealer', 'Terrorblade', 'Treant Protector',
             'Undying', 'Warlock', 'Witch Doctor', ''],
     '0.3': ['Earth Spirit', 'Earthshaker', 'Faceless Void', 'Grimstroke', 'Keeper of the Light', 'Kunkka', 'Lone Druid',
             'Lycan', 'Naga Siren', "Nature's Prophet", 'Puck', 'Sniper', 'Underlord', 'Vengeful Spirit', ''],
-    '0.5': ['Bane', 'Morphling', 'Outworld Destroyer', 'Pugna', 'Rubick', 'Shadow Demon', 'Tusk', ''],
-    '0.7': ['Alchemist', 'Chaos Knight', ''],
+    '0.5': ['Chen', 'Bane', 'Morphling', 'Outworld Destroyer', 'Pugna', 'Rubick', 'Shadow Demon', 'Tusk', ''],
+    '0.7': ['Alchemist', 'Chaos Knight'],
     '0.9': ['Arc Warden', 'Batrider', 'Centaur Warrunner', 'Dazzle', 'Abaddon', 'Io', 'Legion Commander', 'Lich',
             'Mars', 'Ogre Magi', 'Omniknight', 'Oracle', 'Phoenix', 'Pudge', 'Snapfire', 'Tinker', 'Weaver',
             'Winter Wyvern', 'Wraith King']
+}
+
+# Manually filled escape tier, options(spells) to escape and survive
+# 0.1 - bad escape but has
+# 0.3 - invisibility
+# 0.5 - can escape many times
+# 0.7 - make escape others and oneself
+# 0.9 - god of escape
+escape_tier = {
+    '0.1': ['Slardar', 'Arc Warden', 'Hoodwink', 'Grimstroke', ''],
+    '0.3': ['Treant Protector', 'Bounty Hunter', 'Broodmother', 'Clinkz', 'Faceless Void', 'Nyx Assassin', 'Invoker',
+            'Windranger', 'Visage', 'Brewmaster', ''],
+    '0.5': ['Lifestealer', 'Sand King', 'Spirit Breaker', 'Timbersaw', 'Anti-Mage', 'Meepo', 'Juggernaut', 'Meepo',
+            'Monkey King', 'Morphling', 'Pangolier', 'Phantom Assassin', 'Phantom Lancer', 'Riki', 'Slark', 'Spectre',
+            'Templar Assassin', 'Batrider', 'Dark Willow', 'Queen of Pain', 'Lone Druid', 'Rubick'],
+    '0.7': ['Centaur Warrunner', 'Earth Spirit', 'Io', 'Lycan', 'Snapfire', 'Underlord', 'Mirana', 'Naga Siren',
+            'Vengeful Spirit', 'Weaver', 'Dark Seer', 'Oracle', ''],
+    '0.9': ['Ember Spirit', "Nature's Prophet", 'Puck', 'Storm Spirit', 'Void Spirit']
+}
+# 0.1 - stats
+# 0.3 - skills
+# 0.5 - stats + skills
+# 0.7 - heal
+# 0.9 - hard to kill
+durable_tier = {
+    '0.1': ['Beastmaster', 'Chaos Knight', 'Clockwerk', 'Ogre Magi'],
+    '0.3': ['Axe', 'Doom', 'Treant Protector', 'Bane', 'Visage'],
+    '0.5': ['Dragon Knight', 'Earth Spirit', 'Elder Titan', 'Lycan', 'Mars', 'Night Stalker', 'Pudge', 'Slardar',
+            'Spirit Breaker', 'Sven', 'Tidehunter', 'Tiny', 'Underlord', 'Undying', 'Faceless Void', 'Pangolier',
+            'Razor', 'Viper', ''],
+    '0.7': ['Abaddon', 'Alchemist', 'Huskar', 'Kunkka', 'Legion Commander', 'Lifestealer', 'Timbersaw', 'Lone Druid',
+            'Morphling', 'Necrophos', ''],
+    '0.9': ['Brewmaster', 'Bristleback', 'Centaur Warrunner', 'Omniknight', 'Wraith King', 'Medusa', 'Spectre',
+            'Troll Warlord', 'Ursa', 'Enchantress', '']
 }
 
 
@@ -156,6 +164,8 @@ class CounterSynergy:
     tower = 0
     disable = 0
     save = 0
+    escape = 0
+    durable = 0
 
     RANGES = [0.1, 0.3, 0.5, 0.7, 0.9]
 
@@ -168,7 +178,9 @@ class CounterSynergy:
                f'Heal potential: {self.heal}\n' \
                f'Push potential: {self.tower}\n' \
                f'Disable potential: {self.disable}\n' \
-               f'Save options: {self.save}\n'
+               f'Save options: {self.save}\n' \
+               f'Escape options: {self.escape}\n' \
+               f'Hero durability: {self.durable}'
 
     def counter(self):
         for i in CounterSynergy.RANGES:
@@ -182,10 +194,40 @@ class CounterSynergy:
                 self.disable += i
             if self.name in save_tier[str(i)]:
                 self.save += i
+            if self.name in escape_tier[str(i)]:
+                self.escape += i
+            if self.name in durable_tier[str(i)]:
+                self.durable += i
 
-        print(self, end='')
+        return self.name, self.damage, self.heal, self.tower, self.disable, self.save, self.escape, self.durable
 
 
-hero = CounterSynergy(input('Введите героя... '))
+# hero = CounterSynergy(input('Введите героя... '))
+# print(hero.counter())
+team1 = ['Slark', 'Windranger', 'Sand King', 'Earthshaker', 'Centaur Warrunner']
+team2 = ['Ursa', 'Shadow Fiend', 'Pangolier', 'Jakiro', 'Witch Doctor']
 
-hero.counter()
+
+def comparison(ally, enemy):
+    ally_sum = 0
+    enemy_sum = 0
+    print('Ally Team: ')
+    for hero in ally:
+        this = CounterSynergy(hero).counter()
+        name, damage, heal, tower, disable, save, escape, durable = this
+        ally_sum += sum(this[1:])
+        print(
+            f'Name: {name}, Damage: {damage}, Heal: {heal}, Tower: {tower}, Disable: {disable}, Save: {save}, Escape: {escape}, Durable: {durable}')
+    print(f'------------------------Overall: {round(ally_sum, 2)}---------------------------------')
+    print('Enemy Team: ')
+    for hero in enemy:
+        this = CounterSynergy(hero).counter()
+        name, damage, heal, tower, disable, save, escape, durable = this
+        enemy_sum += sum(this[1:])
+        print(
+            f'Name: {name}, Damage: {damage}, Heal: {heal}, Tower: {tower}, Disable: {disable}, Save: {save}, Escape: {escape}, Durable: {durable}')
+
+    print(f'------------------------Overall: {round(enemy_sum, 2)}---------------------------------')
+
+
+comparison(team1, team2)
