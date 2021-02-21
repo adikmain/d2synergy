@@ -1,11 +1,11 @@
-from main import heroes as info
+from parser import get_heroes
 
 # Main lists
 heroes_list = []
 heal_list = []
 tower_list = []
 damage_list = []
-info = [[y.text for y in x[1:]] for x in info]
+info = [[y.text for y in x[1:]] for x in get_heroes()]
 
 
 def getHeroes(names):
@@ -153,81 +153,3 @@ durable_tier = {
     '0.9': ['Brewmaster', 'Bristleback', 'Centaur Warrunner', 'Omniknight', 'Wraith King', 'Medusa', 'Spectre',
             'Troll Warlord', 'Ursa', 'Enchantress', '']
 }
-
-
-# Tryin to make last pick
-
-
-class CounterSynergy:
-    damage = 0
-    heal = 0
-    tower = 0
-    disable = 0
-    save = 0
-    escape = 0
-    durable = 0
-
-    RANGES = [0.1, 0.3, 0.5, 0.7, 0.9]
-
-    def __init__(self, name):
-        self.name = name
-
-    def __str__(self):
-        return f'Hero: {self.name}\n' \
-               f'Damage: {self.damage}\n' \
-               f'Heal potential: {self.heal}\n' \
-               f'Push potential: {self.tower}\n' \
-               f'Disable potential: {self.disable}\n' \
-               f'Save options: {self.save}\n' \
-               f'Escape options: {self.escape}\n' \
-               f'Hero durability: {self.durable}'
-
-    def counter(self):
-        for i in CounterSynergy.RANGES:
-            if self.name in damage_tier[str(i)]:
-                self.damage += i
-            if self.name in heal_tier[str(i)]:
-                self.heal += i
-            if self.name in tower_tier[str(i)]:
-                self.tower += i
-            if self.name in disable_tier[str(i)]:
-                self.disable += i
-            if self.name in save_tier[str(i)]:
-                self.save += i
-            if self.name in escape_tier[str(i)]:
-                self.escape += i
-            if self.name in durable_tier[str(i)]:
-                self.durable += i
-
-        return self.name, self.damage, self.heal, self.tower, self.disable, self.save, self.escape, self.durable
-
-
-# hero = CounterSynergy(input('Введите героя... '))
-# print(hero.counter())
-team1 = ['Phantom Lancer', 'Ancient Apparition', 'Tinker', 'Bounty Hunter', 'Dark Seer']
-team2 = ['Disruptor', 'Wraith King', 'Sniper', 'Nyx Assassin', 'Axe']
-
-
-def comparison(ally, enemy):
-    ally_sum = 0
-    enemy_sum = 0
-    print('Ally Team: ')
-    for hero in ally:
-        this = CounterSynergy(hero).counter()
-        name, damage, heal, tower, disable, save, escape, durable = this
-        ally_sum += sum(this[1:])
-        print(
-            f'Name: {name}, Damage: {damage}, Heal: {heal}, Tower: {tower}, Disable: {disable}, Save: {save}, Escape: {escape}, Durable: {durable}')
-    print(f'------------------------Overall: {round(ally_sum, 2)}---------------------------------')
-    print('Enemy Team: ')
-    for hero in enemy:
-        this = CounterSynergy(hero).counter()
-        name, damage, heal, tower, disable, save, escape, durable = this
-        enemy_sum += sum(this[1:])
-        print(
-            f'Name: {name}, Damage: {damage}, Heal: {heal}, Tower: {tower}, Disable: {disable}, Save: {save}, Escape: {escape}, Durable: {durable}')
-
-    print(f'------------------------Overall: {round(enemy_sum, 2)}---------------------------------')
-
-
-comparison(team1, team2)

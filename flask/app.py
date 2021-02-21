@@ -1,10 +1,10 @@
 from flask import Flask, render_template
-import rating
+import hero_stats
 
 app = Flask(__name__)
 
 header_list = ['Home', 'Heroes', 'Synergy']
-heroes_list = sorted(rating.heroes_list)
+heroes_list = sorted(hero_stats.heroes_list)
 
 
 @app.route('/')
