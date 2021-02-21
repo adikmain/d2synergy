@@ -204,8 +204,8 @@ class CounterSynergy:
 
 # hero = CounterSynergy(input('Введите героя... '))
 # print(hero.counter())
-team1 = ['Slark', 'Windranger', 'Sand King', 'Earthshaker', 'Centaur Warrunner']
-team2 = ['Ursa', 'Shadow Fiend', 'Pangolier', 'Jakiro', 'Witch Doctor']
+team1 = ['Phantom Lancer', 'Ancient Apparition', 'Tinker', 'Bounty Hunter', 'Dark Seer']
+team2 = ['Disruptor', 'Wraith King', 'Sniper', 'Nyx Assassin', 'Axe']
 
 
 def comparison(ally, enemy):

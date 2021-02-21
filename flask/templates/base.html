@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <title> {% block title %} {% endblock %}</title>
+    {% block head %} {% endblock %}
+</head>
+<body>
+<header>
+
+    {% for text in header_list %}
+    <a href="/{{text.lower()}}"> {{ text }}</a>
+    {% endfor %}
+
+</header>
+<div class="article">
+    {% block article %}
+    {% endblock %}
+</div>
+{% block body %}
+{% endblock %}
+</body>
+</html>
