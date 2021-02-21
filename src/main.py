@@ -11,6 +11,6 @@ if __name__ == '__main__':
     calculator = OverallCalculator([heroes[hero_name] for hero_name in team1],
                                    [heroes[hero_name] for hero_name in team2])
     print(calculator.calculate())
-
+    print(heroes['Zeus'].damage)
 
 

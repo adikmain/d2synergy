@@ -3,17 +3,17 @@ from hero_stats import durable_tier, damage_tier, disable_tier, tower_tier, heal
 
 
 class Hero:
-    damage = 0
-    heal = 0
-    tower = 0
-    disable = 0
-    save = 0
-    escape = 0
-    durable = 0
 
     RANGES = [0.1, 0.3, 0.5, 0.7, 0.9]
 
     def __init__(self, name):
+        self.damage = 0
+        self.heal = 0
+        self.tower = 0
+        self.disable = 0
+        self.save = 0
+        self.escape = 0
+        self.durable = 0
         self.name = name
         self.init_stats()
 
@@ -43,5 +43,3 @@ class Hero:
                 self.escape += i
             if self.name in durable_tier[str(i)]:
                 self.durable += i
-
-

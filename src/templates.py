@@ -7,5 +7,7 @@ class Calculator(metaclass=abc.ABCMeta):
         pass
 
 
-
-
+class Assistant(metaclass=abc.ABCMeta):
+    @abc.abstractmethod
+    def assist(self):
+        pass

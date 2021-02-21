@@ -1,4 +1,4 @@
-from calculator import Calculator
+from templates import Calculator
 
 
 class OverallCalculator(Calculator):
