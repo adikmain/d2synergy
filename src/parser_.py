@@ -48,7 +48,7 @@ parse()
 # Get connected to DB
 # Drop and then create table
 
-with sq.connect('adilek.db') as con:
+with sq.connect('../adilek.db') as con:
     cur = con.cursor()
     cur.execute('''DROP TABLE IF EXISTS Heroes''')
     cur.execute('''

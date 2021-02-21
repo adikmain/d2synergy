@@ -1,6 +1,6 @@
 from hero import Hero
 from hero_stats import heroes_list
-from overall_calculator import OverallCalculator, OverallCalculatorResult
+from overall_calculator import OverallCalculator
 
 if __name__ == '__main__':
     team1: list = ['Phantom Lancer', 'Ancient Apparition', 'Zeus', 'Bounty Hunter', 'Dark Seer']
