@@ -8,5 +8,9 @@ if __name__ == '__main__':
 
     heroes = {hero_name: Hero(hero_name) for hero_name in sorted(heroes_list)}
 
-    hehe = OverallCalculator([heroes[hero_name] for hero_name in team1], [heroes[hero_name] for hero_name in team2])
-    print(hehe.calculate())
+    calculator = OverallCalculator([heroes[hero_name] for hero_name in team1],
+                                   [heroes[hero_name] for hero_name in team2])
+    print(calculator.calculate())
+
+
+

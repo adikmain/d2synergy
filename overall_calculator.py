@@ -1,4 +1,7 @@
-class OverallCalculator:
+from calculator import Calculator
+
+
+class OverallCalculator(Calculator):
 
     def __init__(self, first_team, second_team):
         self.first = first_team
@@ -19,7 +22,7 @@ class OverallCalculatorResult:
         self.first_team_power = first_team_power
         self.second_team_power = second_team_power
         self.win_team = 'Вторая команда'
-        if first_team_power < second_team_power:
+        if first_team_power > second_team_power:
             self.win_team = 'Первая команда'
         elif first_team_power == second_team_power:
             self.win_team = 'Обе команды хехе бой'
@@ -30,5 +33,3 @@ class OverallCalculatorResult:
         У второй команды: {self.second_team_power}
         Победила команда: {self.win_team}
         '''
-
-

@@ -1,4 +1,4 @@
-from parser import get_heroes
+from parser_ import get_heroes
 
 # Main lists
 heroes_list = []
@@ -110,10 +110,10 @@ damage_tier = split_ranges(damage_list)
 # 0.9 - damage reduction, save from death, strong dispell
 save_tier = {
     '0.1': ['Dark Seer', 'Enchantress', 'Juggernaut', 'Lifestealer', 'Terrorblade', 'Treant Protector',
-            'Undying', 'Warlock', 'Witch Doctor', ''],
+            'Undying', 'Warlock', 'Witch Doctor'],
     '0.3': ['Earth Spirit', 'Earthshaker', 'Faceless Void', 'Grimstroke', 'Keeper of the Light', 'Kunkka', 'Lone Druid',
-            'Lycan', 'Naga Siren', "Nature's Prophet", 'Puck', 'Sniper', 'Underlord', 'Vengeful Spirit', ''],
-    '0.5': ['Chen', 'Bane', 'Morphling', 'Outworld Destroyer', 'Pugna', 'Rubick', 'Shadow Demon', 'Tusk', ''],
+            'Lycan', 'Naga Siren', "Nature's Prophet", 'Puck', 'Sniper', 'Underlord', 'Vengeful Spirit'],
+    '0.5': ['Chen', 'Bane', 'Morphling', 'Outworld Destroyer', 'Pugna', 'Rubick', 'Shadow Demon', 'Tusk'],
     '0.7': ['Alchemist', 'Chaos Knight'],
     '0.9': ['Arc Warden', 'Batrider', 'Centaur Warrunner', 'Dazzle', 'Abaddon', 'Io', 'Legion Commander', 'Lich',
             'Mars', 'Ogre Magi', 'Omniknight', 'Oracle', 'Phoenix', 'Pudge', 'Snapfire', 'Tinker', 'Weaver',
@@ -127,14 +127,14 @@ save_tier = {
 # 0.7 - make escape others and oneself
 # 0.9 - god of escape
 escape_tier = {
-    '0.1': ['Slardar', 'Arc Warden', 'Hoodwink', 'Grimstroke', ''],
+    '0.1': ['Slardar', 'Arc Warden', 'Hoodwink', 'Grimstroke'],
     '0.3': ['Treant Protector', 'Bounty Hunter', 'Broodmother', 'Clinkz', 'Faceless Void', 'Nyx Assassin', 'Invoker',
-            'Windranger', 'Visage', 'Brewmaster', ''],
+            'Windranger', 'Visage', 'Brewmaster'],
     '0.5': ['Lifestealer', 'Sand King', 'Spirit Breaker', 'Timbersaw', 'Anti-Mage', 'Meepo', 'Juggernaut', 'Meepo',
             'Monkey King', 'Morphling', 'Pangolier', 'Phantom Assassin', 'Phantom Lancer', 'Riki', 'Slark', 'Spectre',
             'Templar Assassin', 'Batrider', 'Dark Willow', 'Queen of Pain', 'Lone Druid', 'Rubick'],
     '0.7': ['Centaur Warrunner', 'Earth Spirit', 'Io', 'Lycan', 'Snapfire', 'Underlord', 'Mirana', 'Naga Siren',
-            'Vengeful Spirit', 'Weaver', 'Dark Seer', 'Oracle', ''],
+            'Vengeful Spirit', 'Weaver', 'Dark Seer', 'Oracle'],
     '0.9': ['Ember Spirit', "Nature's Prophet", 'Puck', 'Storm Spirit', 'Void Spirit']
 }
 # 0.1 - stats
@@ -147,9 +147,9 @@ durable_tier = {
     '0.3': ['Axe', 'Doom', 'Treant Protector', 'Bane', 'Visage'],
     '0.5': ['Dragon Knight', 'Earth Spirit', 'Elder Titan', 'Lycan', 'Mars', 'Night Stalker', 'Pudge', 'Slardar',
             'Spirit Breaker', 'Sven', 'Tidehunter', 'Tiny', 'Underlord', 'Undying', 'Faceless Void', 'Pangolier',
-            'Razor', 'Viper', ''],
+            'Razor', 'Viper'],
     '0.7': ['Abaddon', 'Alchemist', 'Huskar', 'Kunkka', 'Legion Commander', 'Lifestealer', 'Timbersaw', 'Lone Druid',
-            'Morphling', 'Necrophos', ''],
+            'Morphling', 'Necrophos'],
     '0.9': ['Brewmaster', 'Bristleback', 'Centaur Warrunner', 'Omniknight', 'Wraith King', 'Medusa', 'Spectre',
-            'Troll Warlord', 'Ursa', 'Enchantress', '']
+            'Troll Warlord', 'Ursa', 'Enchantress']
 }
