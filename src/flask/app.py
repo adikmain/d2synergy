@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import hero_stats
+import src.hero_stats as hero_stats
 
 app = Flask(__name__)
 

@@ -1,4 +1,4 @@
-from parser_ import get_heroes
+from src.parser_ import get_heroes
 
 # Main lists
 heroes_list = []
