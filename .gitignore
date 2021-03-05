@@ -5,3 +5,4 @@ dbuff.db
 __pycache__/
 
 src/scratch.py
+/identifier.sqlite
