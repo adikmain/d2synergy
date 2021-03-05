@@ -1,13 +1,18 @@
-from src.parser_ import get_heroes
+from src.parser_ import get_heroes, get_timers
 
 # Main lists
 heroes_list = []
 heal_list = []
 tower_list = []
 damage_list = []
-info = [[y.text for y in x[1:]] for x in get_heroes()]
+timers_list = []
+# info = [[y.text for y in x[1:]] for x in get_heroes()]
+
+info = [x for x in get_heroes()]
+timers = [x for x in get_timers()]
 
 
+# Names list
 def getHeroes(names):
     for i in range(len(info)):
         names.append(info[i][0])
@@ -55,6 +60,29 @@ def getDamage(heroes):
 
 getDamage(damage_list)
 
+
+# Timers tier list
+
+def getTimers(heroes):
+    for i in range(len(timers)):
+        heroes.append([float(timers[i][1][:2]), timers[i][0]])
+    for v in range(len(heroes)):
+        if heroes[v][0] > 42.6:
+            heroes[v][0] = 0.9
+        elif heroes[v][0] > 39.8:
+            heroes[v][0] = 0.7
+        elif heroes[v][0] > 38.4:
+            heroes[v][0] = 0.5
+        elif heroes[v][0] > 37:
+            heroes[v][0] = 0.3
+        else:
+            heroes[v][0] = 0.1
+
+
+# 37 - 44 : 1.4 step : 37 - 38.4, 38.4 - 39.8, 39.8 - 41.2, 42.6 - 44.0
+
+getTimers(timers_list)
+
 # Greedy > defense > aggressive > greedy
 
 # 0.1 - Slow
@@ -88,11 +116,11 @@ disable_tier = {
 
 def split_ranges(list_):
     return {
-        '0.1': [x[1] for x in list_ if 0.1 < float(x[0]) < 0.3],
+        '0.1': [x[1] for x in list_ if 0.1 <= float(x[0]) < 0.3],
         '0.3': [x[1] for x in list_ if 0.5 > float(x[0]) >= 0.3],
         '0.5': [x[1] for x in list_ if 0.7 > float(x[0]) >= 0.5],
         '0.7': [x[1] for x in list_ if 0.9 > float(x[0]) >= 0.7],
-        '0.9': [x[1] for x in list_ if float(x[0]) > 0.9]
+        '0.9': [x[1] for x in list_ if float(x[0]) >= 0.9]
     }
 
 
@@ -102,6 +130,8 @@ heal_tier = split_ranges(heal_list)
 tower_tier = split_ranges(tower_list)
 # Damage tier list
 damage_tier = split_ranges(damage_list)
+# Timers tier list
+timers_list = split_ranges(timers_list)
 # Manually filled save list, save others and maybe oneself
 # 0.1 - heal
 # 0.3 - positioning
@@ -153,3 +183,4 @@ durable_tier = {
     '0.9': ['Brewmaster', 'Bristleback', 'Centaur Warrunner', 'Omniknight', 'Wraith King', 'Medusa', 'Spectre',
             'Troll Warlord', 'Ursa', 'Enchantress']
 }
+

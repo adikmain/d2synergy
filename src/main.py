@@ -1,6 +1,7 @@
 from hero import Hero
 from hero_stats import heroes_list
-from overall_calculator import OverallCalculator
+from calculators import OverallCalculator
+from calculators import DetailedCalculator
 
 if __name__ == '__main__':
     team1: list = ['Phantom Lancer', 'Ancient Apparition', 'Zeus', 'Bounty Hunter', 'Dark Seer']
@@ -10,7 +11,12 @@ if __name__ == '__main__':
 
     calculator = OverallCalculator([heroes[hero_name] for hero_name in team1],
                                    [heroes[hero_name] for hero_name in team2])
-    print(calculator.calculate())
-    print(heroes['Zeus'].damage)
 
+    detailed_first_team = DetailedCalculator([heroes[hero_name] for hero_name in team1])
+    detailed_second_team = DetailedCalculator([heroes[hero_name] for hero_name in team2])
+
+    print(calculator.calculate())
+
+    print(detailed_first_team.calculate())
+    print(detailed_second_team.calculate())
 
