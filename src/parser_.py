@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import sqlite3 as sq
+import sqlite3 as sql
 
 # 1. URL - parsing new data from dotabuff.com
 # 2. HEADERS - don't let them think that you're robot
@@ -49,7 +49,7 @@ parse()
 # Get connected to DB
 # Drop and then create table
 
-with sq.connect('../adilek.db') as con:
+with sql.connect('../dbuff.db') as con:
     cur = con.cursor()
     cur.execute('''DROP TABLE IF EXISTS Heroes''')
     cur.execute('''

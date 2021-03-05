@@ -1,9 +1,9 @@
 from hero_stats import durable_tier, damage_tier, disable_tier, tower_tier, heal_tier, save_tier, \
-    escape_tier
+    escape_tier, heroes_list
+import sqlite3 as sql
 
 
 class Hero:
-
     RANGES = [0.1, 0.3, 0.5, 0.7, 0.9]
 
     def __init__(self, name):
@@ -43,3 +43,25 @@ class Hero:
                 self.escape += i
             if self.name in durable_tier[str(i)]:
                 self.durable += i
+        return self
+
+
+with sql.connect('../dbuff.db') as con:
+    cur = con.cursor()
+    cur.execute('''DROP TABLE IF EXISTS Tiers''')
+    cur.execute('''create table if not exists Tiers(
+            name text primary key ,
+            damage integer,
+            heal integer,
+            tower integer,
+            disable integer,
+            save integer,
+            'escape' integer,
+            durable integer
+    
+    )''')
+
+    for hero in sorted(heroes_list):
+        heroes_parameters = Hero(hero).name, Hero(hero).damage, Hero(hero).heal, Hero(hero).tower, Hero(
+            hero).disable, Hero(hero).save, Hero(hero).escape, Hero(hero).durable
+        cur.execute('insert into Tiers values (?, ?, ?, ?, ?, ?, ?, ?)', heroes_parameters)

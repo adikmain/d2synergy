@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 import src.hero_stats as hero_stats
-
 app = Flask(__name__)
 
 header_list = ['Home', 'Heroes', 'Synergy']

@@ -1,7 +1,7 @@
 adilek.db
 /.idea
 .idea
-
+dbuff.db
 __pycache__/
 
 src/scratch.py
