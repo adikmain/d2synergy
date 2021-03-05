@@ -9,18 +9,18 @@ Alternatives are (Damage > Durability > Disable > Damage)
                   (Agressive > Greed > Defensive >  Agressive)
                   
                   
-Meaning of Gank strategy:
+1. Meaning of Gank strategy:
         Team with high kill potential(damage and disable), escape (uses for chase opponents)
         Good early game
         (e.g Bounty Hunter/ Weaver/ SB/ Lion/ Earth Spirit)
 
-Meaning of Greed strategy:
-        Team with high farm potential but weak in early game 
+2. Meaning of Greed strategy:
+        Team with high (farm potential) but weak in early game 
         Needs some items to blossom
         (Tinker/Warden/Furion)
 
-Meaning of Safe strategy:
-        Team with high survivability. 
+3. Meaning of Safe strategy:
+        Team with high survivability(durable, save)
         Good mid game and teamfights
         (Underlord / Lich/ Ogre / +-Treant)  <---- sometimes heroes from greed 
         
