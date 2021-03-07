@@ -1,15 +1,15 @@
-from src.parser_ import get_heroes, get_timers
+from src.parser_ import get_heroes, get_tempo
 
 # Main lists
 heroes_list = []
 heal_list = []
 tower_list = []
 damage_list = []
-timers_list = []
+tempo_tier = []
 # info = [[y.text for y in x[1:]] for x in get_heroes()]
 
 info = [x for x in get_heroes()]
-timers = [x for x in get_timers()]
+tempo = [x for x in get_tempo()]
 
 
 # Names list
@@ -64,8 +64,8 @@ getDamage(damage_list)
 # Timers tier list
 
 def getTimers(heroes):
-    for i in range(len(timers)):
-        heroes.append([float(timers[i][1][:2]), timers[i][0]])
+    for i in range(len(tempo)):
+        heroes.append([float(tempo[i][1][:2]), tempo[i][0]])
     for v in range(len(heroes)):
         if heroes[v][0] > 42.6:
             heroes[v][0] = 0.9
@@ -81,7 +81,7 @@ def getTimers(heroes):
 
 # 37 - 44 : 1.4 step : 37 - 38.4, 38.4 - 39.8, 39.8 - 41.2, 42.6 - 44.0
 
-getTimers(timers_list)
+getTimers(tempo_tier)
 
 # Greedy > defense > aggressive > greedy
 
@@ -112,6 +112,13 @@ disable_tier = {
     '0.9': ['Axe', 'Clockwerk', 'Magnus', 'Phoenix', 'Spirit Breaker', 'Treant Protector', 'Faceless Void', 'Medusa',
             'Enigma', 'Puck', 'Rubick', 'Silencer', 'Warlock', 'Winter Wyvern'],
 }
+anti_heal_list = {
+    '0.1': ['Drow Ranger'],
+    '0.3': ['Pudge'],
+    '0.5': ['Bane', 'Huskar',],
+    '0.7': [''],
+    '0.9': ['Ancient Apparition']
+}
 
 
 def split_ranges(list_):
@@ -131,7 +138,7 @@ tower_tier = split_ranges(tower_list)
 # Damage tier list
 damage_tier = split_ranges(damage_list)
 # Timers tier list
-timers_list = split_ranges(timers_list)
+tempo_tier = split_ranges(tempo_tier)
 # Manually filled save list, save others and maybe oneself
 # 0.1 - heal
 # 0.3 - positioning
@@ -183,4 +190,3 @@ durable_tier = {
     '0.9': ['Brewmaster', 'Bristleback', 'Centaur Warrunner', 'Omniknight', 'Wraith King', 'Medusa', 'Spectre',
             'Troll Warlord', 'Ursa', 'Enchantress']
 }
-

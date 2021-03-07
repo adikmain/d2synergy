@@ -1,5 +1,5 @@
 from hero_stats import durable_tier, damage_tier, disable_tier, tower_tier, heal_tier, save_tier, \
-    escape_tier, heroes_list
+    escape_tier, heroes_list, tempo_tier, anti_heal_list
 import sqlite3 as sql
 
 
@@ -14,6 +14,8 @@ class Hero:
         self.save = 0
         self.escape = 0
         self.durable = 0
+        self.anti_heal = 0
+        self.tempo = 0
         self.name = name
         self.init_stats()
 
@@ -25,7 +27,9 @@ class Hero:
                f'Disable potential: {self.disable}\n' \
                f'Save options: {self.save}\n' \
                f'Escape options: {self.escape}\n' \
-               f'Hero durability: {self.durable}'
+               f'Hero durability: {self.durable}' \
+               f'Anti-heal: {self.anti_heal}' \
+               f"Hero's tempo: {self.tempo}"
 
     def init_stats(self):
         for i in Hero.RANGES:
@@ -43,6 +47,10 @@ class Hero:
                 self.escape += i
             if self.name in durable_tier[str(i)]:
                 self.durable += i
+            if self.name in tempo_tier[str(i)]:
+                self.tempo += i
+            if self.name in anti_heal_list[str(i)]:
+                self.anti_heal += i
         return self
 
 
@@ -57,11 +65,14 @@ with sql.connect('../dbuff.db') as con:
             disable integer,
             save integer,
             'escape' integer,
-            durable integer
+            durable integer,
+            tempo integer,
+            anti_heal integer
     
     )''')
 
     for hero in sorted(heroes_list):
         heroes_parameters = Hero(hero).name, Hero(hero).damage, Hero(hero).heal, Hero(hero).tower, Hero(
-            hero).disable, Hero(hero).save, Hero(hero).escape, Hero(hero).durable
-        cur.execute('insert into Tiers values (?, ?, ?, ?, ?, ?, ?, ?)', heroes_parameters)
+            hero).disable, Hero(hero).save, Hero(hero).escape, Hero(hero).durable, Hero(hero).tempo, Hero(
+            hero).anti_heal
+        cur.execute('insert into Tiers values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', heroes_parameters)

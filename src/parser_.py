@@ -22,7 +22,7 @@ def get_heroes():
     return heroes_complete
 
 
-def get_timers():
+def get_tempo():
     return timers_complete
 
 
