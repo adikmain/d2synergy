@@ -3,6 +3,6 @@ adilek.db
 .idea
 dbuff.db
 __pycache__/
-
+steam api key.txt
 src/scratch.py
 /identifier.sqlite
