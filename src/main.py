@@ -68,7 +68,7 @@ with sql.connect('../dbuff.db') as con:
             durable integer,
             tempo integer,
             anti_heal integer
-    
+
     )''')
 
     for hero in sorted(heroes_list):
